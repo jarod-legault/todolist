@@ -1,0 +1,25 @@
+.nav-form {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-nav {
+  width: 45px;
+  height: 24px;
+}
+
+.nav-input {
+  font-size: 12px;
+  padding: 2px 2px;
+  margin: 2px 2px;
+  width: 130px;
+}
+
+#nav-login-button {
+  font-size: 12px;
+  padding: 0 4px;
+  border-radius: 6px;
+}

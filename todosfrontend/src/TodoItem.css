@@ -1,0 +1,71 @@
+.todo-item {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #dee6ed;
+  border: solid 1px #adbfd2;
+}
+
+.todo-item:hover {
+  cursor: pointer;
+}
+
+.item-container {
+  border-radius: 5px;
+  margin: 5px;
+  padding: 3px;
+}
+
+.item-container:hover {
+  background-color: #ced9e4
+}
+
+.hidden-icon {
+  visibility: hidden;
+}
+
+.todo-edit-form {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+.edit-input {
+  background: none;
+	border: none;
+	border-bottom: 1px solid #34495e;
+	outline: none;
+	font: 300 18px 'Ubuntu', sans-serif;
+	padding: 0px;
+	margin: 0 5px;
+	color: #34495e;
+	width: 100%;
+}
+
+.left-items {
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+.todo-text {
+  margin-right: 5px;
+  margin-left: 5px;
+  display: block;
+  text-align: left;
+}
+
+.edit-submit-check, .cancel-edit-x {
+  font-size: large;
+  margin: 0 2px;
+}
+
+.edit-submit-check:hover {
+	cursor: pointer;
+}
+
+.inputStar {
+  margin-right: 5px;
+}

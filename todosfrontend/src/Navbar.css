@@ -1,0 +1,82 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 10px 10px;
+  background-color: #ced9e4;
+}
+
+.navbar-left, .navbar-center, .navbar-right {
+  width: 33%;
+}
+
+.logged-in-msg {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.logged-in-as-text {
+  margin-right: 5px;
+}
+
+header > h1 {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar button {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: bold;
+  border: solid 1px #2c3e50;
+  padding: 4px;
+  border-radius: 12px;
+  background-color: #dee6ed;
+}
+
+.navbar button:hover {
+  /*text-decoration: underline;*/
+  background-color: #bdccdb;
+}
+
+#nav-logout-button, #nav-my-lists-button {
+  font-size: 12px;
+  padding: 0 4px;
+  border-radius: 6px;
+  width: 60px;
+}
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .navbar-center {
+    order: 0;
+    width: 90%;
+  }
+  
+  .navbar-right {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+  }
+  
+  .navbar-left {
+    order: 2;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+  }
+  
+  .logged-in-msg {
+    display: flex;
+    justify-content: center;
+  }
+}

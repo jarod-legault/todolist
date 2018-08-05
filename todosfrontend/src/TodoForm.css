@@ -1,0 +1,42 @@
+.todo-input-form {
+	/*width: 800px;*/
+	/*width: 50vw;*/
+	width: 100%;
+	margin: 5px auto 20px;
+	display: flex;
+	align-items: center;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+#todoInput {
+	/*width: 100%;*/
+	width: 89%;
+	flex-basis: 30%;
+	flex-grow: 1;
+	height: 60px;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #34495e;
+	outline: none;
+	font: 300 28px 'Ubuntu', sans-serif;
+	padding: 0px;
+	color: #34495e;
+}
+
+.inputStar {
+  font-size: x-large;
+}
+
+.fa-plus-square {
+  font-size: xx-large;
+}
+
+.fa-plus-square:hover {
+  cursor: pointer;
+}
