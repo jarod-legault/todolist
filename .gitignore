@@ -1,2 +1,5 @@
 /todos_api/node_modules
+/todos_api/.env
 /todosfrontend/node_modules
+/todosfrontend/.env.development
+/todosfrontend/build
