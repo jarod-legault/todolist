@@ -148,19 +148,19 @@ class TodoList extends Component {
           this.setState({priorityTodos, completedTodos});
         } else {
           nonPriorityTodos = [...this.state.nonPriorityTodos, todo];
-          await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {nonPriorityList: nonPriorityTodos, completedList: completedTodos});
           completedTodos = this.state.completedTodos.filter((t, i) => index !== i);
+          await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {nonPriorityList: nonPriorityTodos, completedList: completedTodos});
           this.setState({nonPriorityTodos, completedTodos});
         }
       } else if(todo.priority) {
         completedTodos = [todo, ...this.state.completedTodos];
-        await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {completedList: completedTodos, priorityList: priorityTodos});
         priorityTodos = this.state.priorityTodos.filter((t, i) => index !== i);
+        await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {completedList: completedTodos, priorityList: priorityTodos});
         this.setState({priorityTodos, completedTodos});
       } else {
         completedTodos = [todo, ...this.state.completedTodos];
-        await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {completedList: completedTodos, nonPriorityList: nonPriorityTodos});
         nonPriorityTodos = this.state.nonPriorityTodos.filter((t, i) => index !== i);
+        await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {completedList: completedTodos, nonPriorityList: nonPriorityTodos});
         this.setState({nonPriorityTodos, completedTodos});
       }
     } catch(err) {
