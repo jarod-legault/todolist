@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import './Homepage.css';
 
 const Homepage = props => {
-  const { currentUser, updateDefaultList, onError, onClearError } = props;
+  const { currentUser, onError, onClearError } = props;
   if(!currentUser.isLoggedIn) {
     return <Redirect to={`/signup`} />;
   } else {
@@ -14,7 +14,6 @@ const Homepage = props => {
         { currentUser.isLoggedIn && (
             <TodoList 
               currentUser={currentUser}
-              updateDefaultList={updateDefaultList}
               onError={onError}
               onClearError={onClearError}
               listId={currentUser.defaultTodoList}

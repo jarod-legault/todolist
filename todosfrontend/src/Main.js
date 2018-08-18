@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import Homepage from './Homepage';
 import Register from './Register';
 import TodoLists from './TodoLists';
@@ -7,18 +8,16 @@ import TodoList from './TodoList';
 import './Main.css';
 
 const Main = props => {
-  const { onAuth, currentUser, updateDefaultList, onError, onClearError } = props;
+  const { onAuth, currentUser, onError, onClearError } = props;
   return(
     <div>
       <Switch>
-        <Route exact path='/' render={props => (
-          <Homepage
-            {...props}
-            currentUser={currentUser}
-            updateDefaultList={updateDefaultList}
-            onError={onError}
-            onClearError={onClearError}
-          />
+        <Route exact path='/' render={() => (
+          currentUser.isLoggedIn ? (
+            <Redirect to={`/${currentUser.username}/mylists`} />
+          ) : (
+            <Redirect to={`/signup`} />
+          )
         )}/>
         <Route exact path='/signup' render={props => {
           return(

@@ -129,7 +129,6 @@ class App extends Component {
             <Main
               currentUser={this.state.currentUser}
               onAuth={this.authUser}
-              updateDefaultList={this.updateDefaultList}
               onError={this.addError}
               onClearError={this.clearError}
             />

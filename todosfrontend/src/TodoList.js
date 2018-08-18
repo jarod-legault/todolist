@@ -285,7 +285,8 @@ class TodoList extends Component {
     }
   }
   
-  async updateTitle() {
+  async updateTitle(e) {
+    e.preventDefault();
     try {
       await apiCalls.updateTodoList(this.props.currentUser.id, this.props.match.params.listId, {name: this.state.titleText});
       this.setState({name: this.state.titleText, titleEditable: false});
