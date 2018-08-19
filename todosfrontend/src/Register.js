@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './Register.css';
+var evaluate = require('zxcvbn');
 
 class Register extends Component {
   constructor(props) {
@@ -9,23 +11,68 @@ class Register extends Component {
       username: '',
       emailOrUsername: '',
       password: '',
-      confirmedPassword: ''
+      confirmedPassword: '',
+      evResult: {}
     };
   }
   
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    if(e.target.name === 'password') {
+      const evResult = evaluate(e.target.value);
+      this.setState({
+        [e.target.name]: e.target.value,
+        evResult
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    }
   }
   
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onAuth('signup', this.state);
+    this.props.onAuth('signup', {
+      email: this.state.email,
+      confirmedEmail: this.state.confirmedEmail,
+      username: this.state.username,
+      password: this.state.password,
+      confirmedPassword: this.state.confirmedPassword,
+      passwordScore: this.state.evResult.score
+    });
   }
   
   render() {
-    const { email, confirmedEmail, username, password, confirmedPassword } = this.state;
+    const { email, confirmedEmail, username, password, confirmedPassword, evResult } = this.state;
+    const strengthText = {
+      0: 'weak',
+      1: 'weak',
+      2: 'ok',
+      3: 'good',
+      4: 'strong'
+    }
+    var strengthMessage;
+    var suggestions = '';
+    if(evResult.feedback && evResult.feedback.warning){
+      suggestions = evResult.feedback.warning +'. ';
+    }
+    if(evResult.feedback && evResult.feedback.suggestions){
+      for(let i = 0; i < evResult.feedback.suggestions.length; i++) {
+        suggestions += evResult.feedback.suggestions[i] +' ';
+      }
+    }
+    if(password !== '') {
+      strengthMessage = (
+        <div>
+          <p>Password strength: {strengthText[evResult.score]}</p>
+          {(evResult.feedback.warning || evResult.feedback.suggestions) &&
+            <p>{suggestions}</p>              
+          }
+        </div>
+      )
+    } else {
+      strengthMessage = null;
+    }
     return(
       <form onSubmit={this.handleSubmit}>
         <h2>Register for a todolist account.</h2>
@@ -93,10 +140,10 @@ class Register extends Component {
             onChange={this.handleChange}
             value={password}
             required
-            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{7,10}"
           />
-          <span>7-10 characters: one uppercase, one lowercase, one number, one special character, no spaces</span>
         </div>
+        <div id={`strength-bar${evResult.score}`}></div>
+        {strengthMessage}
         
         <div className="input-group mb-3">
           <div className="input-group-prepend">
@@ -112,7 +159,6 @@ class Register extends Component {
             onChange={this.handleChange}
             value={confirmedPassword}
             required
-            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{7,10}"
           />
         </div>
         <button

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import Homepage from './Homepage';
 import Register from './Register';
 import TodoLists from './TodoLists';
 import TodoList from './TodoList';
