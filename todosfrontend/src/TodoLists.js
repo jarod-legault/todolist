@@ -38,7 +38,8 @@ class TodoLists extends Component {
     try {
       let newList = await apiCalls.createTodoList(this.props.currentUser.id, this.state.newListName);
       let todoLists = [...this.state.todoLists, {name: newList.name, _id: newList._id}];
-      this.setState({todoLists});
+      let newListName = '';
+      this.setState({todoLists, newListName});
     } catch(err) {
       console.log("Error in <TodoLists>/handleSubmit: ");
       console.log(err);

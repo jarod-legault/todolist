@@ -8,27 +8,15 @@ var todoListSchema = new mongoose.Schema({
   },
   priorityList: {
     type: Array,
-    default: [{
-      name: 'High priority items go here.',
-      priority: true,
-      completed: false
-    }]
+    default: []
   },
   nonPriorityList: {
     type: Array,
-    default: [{
-      name: 'Low priority items go here.',
-      priority: false,
-      completed: false
-    }]
+    default: []
   },
   completedList: {
     type: Array,
-    default: [{
-      name: 'Items go here when marked as complete.',
-      priority: true,
-      completed: true
-    }]
+    default: []
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

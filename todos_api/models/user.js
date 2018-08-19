@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "TodoList"
     }  
-  ],
-  defaultTodoList: {
-    type: String,
-    default: ''
-  }
+  ]
+  // defaultTodoList: {
+  //   type: String,
+  //   default: ''
+  // }
 });
 
 userSchema.pre('save', async function(next) {

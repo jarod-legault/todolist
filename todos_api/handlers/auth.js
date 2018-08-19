@@ -7,13 +7,13 @@ var schema = new passwordValidator();
  
 // Add properties to it
 schema
-.is().min(7)                                    // Minimum length 8
-.has().uppercase()                              // Must have uppercase letters
-.has().lowercase()                              // Must have lowercase letters
-.has().digits()                                 // Must have digits
-.has().symbols()                                 // Must have symbols
+// .is().min(7)                                    // Minimum length 8
+// .has().uppercase()                              // Must have uppercase letters
+// .has().lowercase()                              // Must have lowercase letters
+// .has().digits()                                 // Must have digits
+// .has().symbols()                                 // Must have symbols
 .has().not().spaces()                           // Should not have spaces
-.is().not().oneOf(['Passw0rd', 'Password123', 'Password', 'password', '1234567']); // Blacklist these values
+/*.is().not().oneOf(['Passw0rd', 'Password123', 'Password', 'password', '1234567'])*/; // Blacklist these values
 
 exports.signin = async function(req, res, next) {
   var emailOrUsername = req.body.emailOrUsername;
@@ -66,8 +66,8 @@ exports.signup = async function(req, res, next) {
       throw new Error("Emails don't match.");
     }
     // Validate password
-    if(!schema.validate(req.body.password)){
-      throw new Error("Passord must have at least 7 characters and contain at least one uppercase, lowercase, symbol, number, and no spaces.");
+    if(!schema.validate(req.body.password) || req.body.passwordScore <= 1){
+      throw new Error("Passord cannot contain spaces and must have a strength of ok, good, or strong.");
     }
     // Check that username doesn't have '@' or space
     if(req.body.username.includes('@') || req.body.username.includes(' ')){
