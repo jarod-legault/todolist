@@ -16,7 +16,7 @@ const Homepage = props => {
               currentUser={currentUser}
               onError={onError}
               onClearError={onClearError}
-              listId={currentUser.defaultTodoList}
+              // listId={currentUser.defaultTodoList}
             />
         )}
       </div>

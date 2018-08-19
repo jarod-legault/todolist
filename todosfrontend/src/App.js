@@ -45,8 +45,8 @@ class App extends Component {
           isLoggedIn: true,
           username: userData.username,
           id: userData.id,
-          token: userData.token,
-          defaultTodoList: userData.defaultTodoList
+          token: userData.token
+          // defaultTodoList: userData.defaultTodoList
         }
       });
     }
@@ -58,8 +58,45 @@ class App extends Component {
       apiCalls.setTokenHeader(userData.token);
       if(authType === 'signup') {
         var todoList = await apiCalls.createTodoList(userData.id, 'My first list');
-        await apiCalls.editUser(userData.id, {defaultTodoList: todoList._id});
-        userData.defaultTodoList = todoList._id;
+        todoList.priorityList = [
+          {
+            name: 'High priority items go here',
+            priority: true,
+            completed: false
+          },
+          {
+            name: 'Click on an item to mark it as complete',
+            priority: true,
+            completed: false
+          }
+        ];
+        todoList.nonPriorityList = [
+          {
+            name: 'Low priority items go here',
+            priority: false,
+            completed: false
+          },
+          {
+            name: 'Drag items to reorder them in the list',
+            priority: false,
+            completed: false
+          },
+          {
+            name: 'Click the star to toggle the priority status of a task',
+            priority: false,
+            completed: false
+          },
+        ];
+        todoList.completedList = [
+          {
+            name: 'Completed items go here',
+            priority: false,
+            completed: true
+          }
+        ];
+        await apiCalls.updateTodoList(userData.id, todoList._id, todoList);
+        // await apiCalls.editUser(userData.id, {defaultTodoList: todoList._id});
+        // userData.defaultTodoList = todoList._id;
       }
       localStorage.setItem('currentUser', JSON.stringify(userData));
       this.setState({
@@ -67,8 +104,8 @@ class App extends Component {
           isLoggedIn: true,
           username: userData.username,
           id: userData.id,
-          token: userData.token,
-          defaultTodoList: userData.defaultTodoList
+          token: userData.token
+          // defaultTodoList: userData.defaultTodoList
         },
         error: null
       });
@@ -90,8 +127,8 @@ class App extends Component {
         isLoggedIn: false,
         username: '',
         id: '',
-        token: '',
-        defaultTodoList: ''
+        token: ''
+        // defaultTodoList: ''
       }
     });
       this.props.history.push('/signup');
