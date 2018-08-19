@@ -77,7 +77,7 @@ class App extends Component {
             completed: false
           },
           {
-            name: 'Drag items to reorder them in the list',
+            name: 'Use drag handle left of the star to reorder items in the list',
             priority: false,
             completed: false
           },

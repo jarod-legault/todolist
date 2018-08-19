@@ -386,7 +386,8 @@ class TodoList extends Component {
             items={priorityTodos}
             lockAxis='y'
             onSortEnd={this.onSortEndPriority.bind(this)}
-            pressDelay={150}
+            useDragHandle={true}
+            // pressDelay={150}
           />
           <hr />
           
@@ -394,14 +395,16 @@ class TodoList extends Component {
             items={nonPriorityTodos}
             lockAxis='y'
             onSortEnd={this.onSortEndNonPriority.bind(this)}
-            pressDelay={150}
+            useDragHandle={true}
+            // pressDelay={150}
           />
           <hr />
           <SortableList
             items={completedTodos}
             lockAxis='y'
             onSortEnd={this.onSortEndCompleted.bind(this)}
-            pressDelay={150}
+            useDragHandle={true}
+            // pressDelay={150}
           />
           { this.state.completedTodos.length > 0 ? 
             <button className='delete-all-button' onClick={this.deleteAllCompleted}>

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { SortableHandle } from 'react-sortable-hoc';
 import './TodoItem.css';
+
+const DragHandle = SortableHandle(() => <i className='fas fa-arrows-alt'></i>); // This can be any component you want
 
 class TodoItem extends Component {
   constructor(props) {
@@ -84,6 +87,7 @@ class TodoItem extends Component {
     return (
       <div className='todo-item item-container'>
         <div className='left-items'>
+          <DragHandle />
           {starIcon}
           {todoBody}
           {editIcon}
