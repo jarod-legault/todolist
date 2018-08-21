@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "TodoList"
     }  
-  ]
+  ],
+  priorityList: {
+    type: Array,
+    default: []
+  }
   // defaultTodoList: {
   //   type: String,
   //   default: ''

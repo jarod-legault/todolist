@@ -6,10 +6,6 @@ var todoListSchema = new mongoose.Schema({
     type: String,
     required: 'Name cannot be blank!'
   },
-  priorityList: {
-    type: Array,
-    default: []
-  },
   nonPriorityList: {
     type: Array,
     default: []

@@ -2,7 +2,7 @@ var db = require('../models');
 
 exports.getTodoLists = async function(req, res, next){
   try {
-    let todoLists = await db.TodoList.find({user: req.params.userId}, '_id name').sort('name');
+    let todoLists = await db.TodoList.find({user: req.params.userId}, '_id name priorityList').sort('name');
     res.status(200).json(todoLists);
   } catch (err) {
     next(err);
@@ -32,6 +32,10 @@ exports.createTodoList = async function(req, res, next){
 exports.getTodoList = async function(req, res, next){
   try{
     let foundTodoList = await db.TodoList.findById(req.params.listId);
+    let user = await db.User.findById(req.params.userId);
+    foundTodoList = foundTodoList.toObject();
+    user = user.toObject();
+    foundTodoList.priorityList = user.priorityList;
     res.status(200).json(foundTodoList);
   } catch(err) {
     return next(err);
@@ -49,7 +53,17 @@ exports.getTodoList = async function(req, res, next){
 
 exports.updateTodoList = async function(req, res, next){
   try {
+    if(req.body.priorityList) {
+      await db.User.findOneAndUpdate({_id: req.params.userId}, {priorityList: req.body.priorityList}, {new: true});
+      delete req.body.priorityList;
+    }
     let updatedTodoList = await db.TodoList.findOneAndUpdate({_id: req.params.listId}, req.body, {new: true});
+    updatedTodoList = updatedTodoList.toObject();
+    let user = await db.User.findById(req.params.userId);
+    updatedTodoList = {
+      ...updatedTodoList,
+      priorityList: user.priorityList
+    }
     res.status(200).json(updatedTodoList);
   } catch(err) {
     return next(err);
@@ -67,6 +81,9 @@ exports.updateTodoList = async function(req, res, next){
 
 exports.deleteTodoList = async function(req, res, next){
   try {
+    let foundUser = await db.User.findById(req.params.userId);
+    foundUser.priorityList = foundUser.priorityList.filter(task => task.listId.toString() !== req.params.listId);
+    await foundUser.save();
     let deleteStatus = await db.TodoList.remove({_id: req.params.listId});
     if(deleteStatus.n < 1) throw new Error('List was not deleted');
     res.status(200).json({message: 'Deleted todo list'});

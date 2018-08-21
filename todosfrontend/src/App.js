@@ -60,36 +60,36 @@ class App extends Component {
         var todoList = await apiCalls.createTodoList(userData.id, 'My first list');
         todoList.priorityList = [
           {
-            name: 'High priority items go here',
-            priority: true,
-            completed: false
-          },
-          {
-            name: 'Click on an item to mark it as complete',
+            name: 'High priority items from all your lists go here.',
             priority: true,
             completed: false
           }
         ];
         todoList.nonPriorityList = [
           {
-            name: 'Low priority items go here',
+            name: 'Low priority items go here.',
             priority: false,
             completed: false
           },
           {
-            name: 'Use drag handle left of the star to reorder items in the list',
+            name: 'Use drag handle left of the star to reorder items in the list.',
             priority: false,
             completed: false
           },
           {
-            name: 'Click the star to toggle the priority status of a task',
+            name: 'Click the star to toggle the priority status of a task and click on the item text to mark it as complete.',
             priority: false,
             completed: false
-          },
+          }
         ];
         todoList.completedList = [
           {
-            name: 'Completed items go here',
+            name: 'Completed items for this list go here.',
+            priority: false,
+            completed: true
+          },
+          {
+            name: 'Click on the item text to mark it as not complete.',
             priority: false,
             completed: true
           }
