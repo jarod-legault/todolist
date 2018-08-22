@@ -50,6 +50,58 @@ export async function authUser(authType, data) {
   });
 }
 
+export async function requestReset(email, confirmedEmail) {
+  const authUrl = '/api/auth/forgot';
+  return axios.post(authUrl, {email, confirmedEmail})
+  .then(response => {
+    return response.data;
+  })
+  .catch(error => {
+    // Error
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      throw new Error(error.response.data.error.message);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      throw new Error(error.request.data.error.message);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Axios error, neither request nor response');
+      console.log('Error', error.message);
+      throw new Error('Error authorizing user');
+    }
+  });
+}
+
+export async function resetPassword(password, confirmedPassword, passwordScore, token) {
+  const authUrl = `/api/auth/reset/${token}`;
+  return axios.post(authUrl, {password, confirmedPassword, passwordScore, token})
+  .then(response => {
+    return response.data;
+  })
+  .catch(error => {
+    // Error
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      throw new Error(error.response.data.error.message);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      throw new Error(error.request.data.error.message);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Axios error, neither request nor response');
+      console.log('Error', error.message);
+      throw new Error('Error authorizing user');
+    }
+  });
+}
+
 export async function editUser(userId, data) {
   const editUrl = `/api/auth/${userId}`;
   return axios.put(editUrl, data)

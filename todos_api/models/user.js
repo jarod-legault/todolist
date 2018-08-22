@@ -25,11 +25,13 @@ const userSchema = new mongoose.Schema({
   priorityList: {
     type: Array,
     default: []
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
-  // defaultTodoList: {
-  //   type: String,
-  //   default: ''
-  // }
 });
 
 userSchema.pre('save', async function(next) {

@@ -50,6 +50,17 @@ header > h1 {
   width: 60px;
 }
 
+.login-and-forgot {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+}
+
+.forgot-link {
+  font-size: 12px;
+  text-align: right;
+}
+
 @media only screen and (max-width: 900px) {
   .navbar {
     align-items: center;

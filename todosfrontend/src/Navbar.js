@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import './Navbar.css';
 
@@ -38,9 +38,10 @@ class Navbar extends Component {
             </div>
           }
           { !currentUser.isLoggedIn &&
-            <LoginForm
-            onAuth={onAuth}
-          />
+            <div className='login-and-forgot'>
+              <LoginForm onAuth={onAuth} />
+              <Link to='/forgot' className='forgot-link'>Forgot your password?</Link>
+            </div>
           }
         </div>
       </nav>

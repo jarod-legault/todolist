@@ -21,6 +21,8 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.addError = this.addError.bind(this);
     this.clearError = this.clearError.bind(this);
+    this.resetRequest = this.resetRequest.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
   }
   
   componentDidMount() {
@@ -133,6 +135,41 @@ class App extends Component {
     });
       this.props.history.push('/signup');
   }
+
+  async resetRequest(email, confirmedEmail) {
+    try{
+      await apiCalls.requestReset(email, confirmedEmail);
+      this.props.history.push('/resetRequestSent');
+    } catch(err) {
+      console.log('Error in password reset request (/app.js/resetRequest): ');
+      console.log(`error status: ${err.status}`);
+      console.log(`error message: ${err.message}`);
+      this.addError(err);
+    }
+  }
+
+  async resetPassword(password, confirmedPassword, pwScore, token) {
+    try{
+      let userData = await apiCalls.resetPassword(password, confirmedPassword, pwScore, token);
+      apiCalls.setTokenHeader(userData.token);localStorage.setItem('currentUser', JSON.stringify(userData));
+      this.setState({
+        currentUser: {
+          isLoggedIn: true,
+          username: userData.username,
+          id: userData.id,
+          token: userData.token
+          // defaultTodoList: userData.defaultTodoList
+        },
+        error: null
+      });
+      this.props.history.push('/');
+    } catch(err) {
+      console.log('Error in password reset (/app.js/resetPassword): ');
+      console.log(`error status: ${err.status}`);
+      console.log(`error message: ${err.message}`);
+      this.addError(err);
+    }
+  }
   
   addError(err) {
     this.setState({
@@ -145,7 +182,7 @@ class App extends Component {
       error: null
     });
   }
-  
+
   render() {
     if(this.state.currentUser.isLoggedIn === null) {
       return(<div></div>);
@@ -168,6 +205,8 @@ class App extends Component {
               onAuth={this.authUser}
               onError={this.addError}
               onClearError={this.clearError}
+              onResetRequest={this.resetRequest}
+              onResetSubmit={this.resetPassword}
             />
           </div>
         </div>
